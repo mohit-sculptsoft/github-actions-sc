@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - develop
+      - staging
+      - main
+
+env:
+  APP_DEPLOY_NAME: ${{ env.APP_NAME }}
+  DEPLOYMENT_BRANCH: ${{ github.ref }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Trigger deployment
+      uses: peter-evans/trigger-pipeline@v1
+      with:
+        token: ${{ secrets.DEPLOYMENT_PIPELINE_TOKEN }}
+        repo: /Deployment
+        branch: azure-migration
+        variables: |
+          {
+            "APP_DEPLOY_NAME": "${{ env.APP_DEPLOY_NAME }}",
+            "DEPLOYMENT_BRANCH": "${{ env.DEPLOYMENT_BRANCH }}"
+          }
