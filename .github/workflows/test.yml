@@ -8,7 +8,7 @@ on:
       - main
 
 env:
-  APP_DEPLOY_NAME: ${{ env.APP_NAME }}
+  APP_DEPLOY_NAME: ${{ APP_NAME }}
   DEPLOYMENT_BRANCH: ${{ github.ref }}
 
 jobs:
