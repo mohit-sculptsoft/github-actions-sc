@@ -1,16 +1,28 @@
-name: reviewdog
-on: [pull_request]
+name: JavaScript Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  eslint:
-    name: runner / eslint
+  lint:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write 
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: reviewdog/action-eslint@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          github_token: ${{ secrets.REVIEWDOG_GITHUB_KEY }}
-          reporter: github-check # Change reporter.
-          eslint_flags: 'src/'
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint .
