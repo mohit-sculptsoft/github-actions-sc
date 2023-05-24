@@ -1,32 +1,16 @@
-name: Python Lint
-
-on:
-  push:
-    branches:
-      - main
-
+name: reviewdog
+on: [pull_request]
 jobs:
-  lint:
+  eslint:
+    name: runner / eslint
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      pull-requests: write 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v2
+      - uses: reviewdog/action-eslint@v1
         with:
-          python-version: 3.x
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install pylint
-          curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin v0.13.0
-
-      - name: Run linter
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.REVIEWDOG_GITHUB_KEY }}
-        run: |
-          pylint --output-format=parseable . | tee pylint_output.txt
-          cat pylint_output.txt | reviewdog -f=pylint -reporter=github-check
+          github_token: ${{ secrets.REVIEWDOG_GITHUB_KEY }}
+          reporter: github-check # Change reporter.
+          eslint_flags: 'src/'
