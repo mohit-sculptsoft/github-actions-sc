@@ -1,16 +1,27 @@
-name: reviewdog
-on: [pull_request]
+name: Python Lint
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  eslint:
-    name: runner / eslint
+  lint:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          node-version: '14'
-      - run: yarn install
-      - uses: reviewdog/action-eslint@v1
-        with:
-          reporter: github-check
-          eslint_flags: 'src/'
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run linter
+        run: |
+          pylint --output-format=parseable . | tee pylint_output.txt
+          cat pylint_output.txt | reviewdog -f=pylint -reporter=github-pr-review
