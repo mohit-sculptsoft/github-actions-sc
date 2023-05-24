@@ -22,8 +22,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pylint
-          go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
-
+          curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin v0.13.0
 
       - name: Run linter
         run: |
