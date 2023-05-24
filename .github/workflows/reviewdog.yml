@@ -25,6 +25,8 @@ jobs:
           curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin v0.13.0
 
       - name: Run linter
+        env:
+          REVIEWDOG_GITLAB_API_TOKEN: ${{ secrets.GITHUB_KEY }}
         run: |
           pylint --output-format=parseable . | tee pylint_output.txt
           cat pylint_output.txt | reviewdog -f=pylint -reporter=github-pr-review
