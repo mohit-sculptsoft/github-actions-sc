@@ -27,4 +27,4 @@ jobs:
       run: npm install -g selenium-side-runner
 
     - name: Run Selenium tests
-      run: selenium-side-runner -c "side.yaml"
+      run: selenium-side-runner -c "testing.side"
