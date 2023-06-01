@@ -1,0 +1,8 @@
+runner:
+  go:
+    cmd: "github.com/reviewdog/reviewdog/cmd/reviewdog@latest"
+
+linters:
+  pylint:
+    cmd: "pylint"
+    pattern: "**/*.py"

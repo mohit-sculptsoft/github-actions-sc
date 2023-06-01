@@ -1,0 +1,27 @@
+name: JavaScript Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch_depth: 0
+
+      - name: Set up Node.js
+        uses: github/super-linter@v3
+        env: 
+          VALIDATE_ALL_CODEBASE: flase
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.REVIEWDOG_GITHUB_KEY }}
+
