@@ -6,7 +6,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 import time
 
 # Create a new Firefox driver
-driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+driver = webdriver.Firefox(service=GeckoDriverManager().install())
 
 
 # Open the test file
