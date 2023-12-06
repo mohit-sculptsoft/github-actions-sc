@@ -6,7 +6,7 @@ on:
       - develop
       - staging
       - main
-
+      - cherry-pick
 env:
   APP_DEPLOY_NAME: ${{ secrets.APP_NAME }}
   DEPLOYMENT_BRANCH: ${{ github.ref }}
