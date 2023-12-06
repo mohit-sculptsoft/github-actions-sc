@@ -6,6 +6,7 @@ on:
       - develop
       - staging
       - main
+      - mohit
 
 env:
   APP_DEPLOY_NAME: ${{ secrets.APP_NAME }}
