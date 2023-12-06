@@ -1,0 +1,77 @@
+name: Selenium Testing
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+  
+    steps:
+    
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: | 
+          pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Run tests
+        run: |
+          pytest --verbose
+
+
+#       - name: Run pytest
+#         run: pytest
+
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: '3.x'
+
+#     - name: Install dependencies
+#       run: |
+#         pip install selenium 
+#         pip install webdriver_manager
+#         pip install --upgrade selenium
+
+#     - name: Run Selenium Test
+#       run: python run-test.py
+      
+      
+      
+      
+      
+      
+      
+      
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: '3.x'
+
+#     - name: Install Firefox
+#       run: |
+#         sudo apt-get update
+#         sudo apt-get install firefox -y
+
+#     - name: Install Selenium IDE
+#       run: npm install -g selenium-side-runner
+
+#     - name: Run Selenium tests
+#       run: selenium-side-runner -c "testing.side"
